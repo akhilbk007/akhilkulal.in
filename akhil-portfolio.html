@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akhil Kulal B — Cybersecurity Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0f;
+    --surface: #0c1520;
+    --surface2: #111d2b;
+    --border: #1a2d40;
+    --accent: #00d4ff;
+    --accent2: #ff3c6f;
+    --accent3: #39ff8f;
+    --text: #c8dcea;
+    --muted: #4a6a80;
+    --white: #eaf4fc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  #cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: transform 0.1s ease;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+    transition: all 0.15s ease;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,212,255,0.013) 2px, rgba(0,212,255,0.013) 4px);
+    pointer-events: none;
+    z-index: 1000;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0,212,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.035) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(5,10,15,0.9);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-socials { display: flex; gap: 14px; }
+  .nav-social-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .nav-social-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-social-btn svg { width: 13px; height: 13px; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 60px 60px;
+    z-index: 1;
+    gap: 60px;
+    overflow: hidden;
+  }
+  .hero-glow1 {
+    position: absolute;
+    top: 0; right: 0;
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse at top right, rgba(0,212,255,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 500px; height: 500px;
+    background: radial-gradient(ellipse at bottom left, rgba(255,60,111,0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--accent); }
+  .eyebrow-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .hero-name .first { display: block; }
+  .hero-name .last {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 22px 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-title::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+  .hero-bio {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 2;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 40px;
+    border-left: 2px solid var(--border);
+    padding-left: 20px;
+  }
+  .hero-bio strong { color: var(--text); font-weight: 400; }
+
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 30px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--white); transform: translateY(-2px); box-shadow: 0 0 28px rgba(0,212,255,0.35); }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 30px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* PROFILE CARD (right side of hero) */
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+  }
+
+  .profile-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .profile-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,212,255,0.2);
+    animation: spin 8s linear infinite;
+  }
+  .profile-avatar::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,212,255,0.1);
+    animation: spin 14s linear infinite reverse;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .profile-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .profile-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .profile-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .profile-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    letter-spacing: 0.06em;
+    background: var(--surface2);
+    transition: all 0.2s;
+  }
+  .profile-tag:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  .profile-socials { display: flex; gap: 12px; }
+  .profile-social {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    flex: 1;
+    justify-content: center;
+  }
+  .profile-social:hover { color: var(--white); border-color: var(--white); }
+  .profile-social.insta:hover { border-color: #e1306c; color: #e1306c; }
+  .profile-social.linkedin:hover { border-color: #0077b5; color: #0077b5; }
+
+  /* Mini terminal */
+  .mini-terminal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+  }
+  .mini-term-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .td { width: 9px; height: 9px; border-radius: 50%; }
+  .td.r { background: #ff5f57; } .td.y { background: #ffbd2e; } .td.g { background: #28c840; }
+  .term-label { margin-left: auto; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; }
+  .mini-term-body { padding: 16px 18px; line-height: 1.9; }
+  .tl { display: flex; gap: 8px; }
+  .tp { color: var(--accent3); } .tc { color: var(--white); } .to { color: var(--muted); padding-left: 16px; }
+  .to.a { color: var(--accent); } .to.g { color: var(--accent3); } .to.r { color: var(--accent2); }
+  .tcur { display: inline-block; width: 7px; height: 13px; background: var(--accent); animation: blink 1s step-end infinite; vertical-align: middle; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* STATS */
+  .stats-bar {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .stat-item {
+    padding: 30px 40px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px; width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.8s ease;
+  }
+  .stat-item:hover { background: var(--surface2); }
+  .stat-item:hover::after { width: 100%; }
+  .stat-num { font-size: 2.4rem; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; padding: 100px 60px; }
+
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 60px; }
+  .section-tag { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--accent2); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+  .section-title { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; color: var(--white); letter-spacing: -0.025em; line-height: 1; }
+  .section-line { flex: 1; height: 1px; background: var(--border); margin: 0 40px 8px; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-text p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 2;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--text); font-weight: 400; }
+  .about-text p em { color: var(--accent); font-style: normal; }
+
+  .about-highlights { display: flex; flex-direction: column; gap: 2px; }
+  .highlight-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .highlight-row:hover { background: var(--surface2); border-color: var(--accent); }
+  .hl-icon { font-size: 1.3rem; width: 36px; }
+  .hl-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+  .hl-value { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+
+  /* EXPERTISE */
+  .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .expertise-card {
+    background: var(--surface);
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .expertise-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .expertise-card:hover { background: var(--surface2); transform: translateY(-3px); }
+  .expertise-card:hover::before { transform: scaleX(1); }
+  .card-icon { font-size: 1.8rem; margin-bottom: 18px; display: block; }
+  .card-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+  .card-desc { font-family: 'Space Mono', monospace; font-size: 0.7rem; line-height: 1.9; color: var(--muted); }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+  .tag { font-family: 'Space Mono', monospace; font-size: 0.6rem; padding: 4px 10px; border: 1px solid var(--border); color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* CERTS */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2px; }
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at bottom right, rgba(0,212,255,0.08) 0%, transparent 70%);
+  }
+  .cert-card:hover { background: var(--surface2); border-color: var(--accent3); }
+  .cert-badge { font-size: 1.6rem; }
+  .cert-name { font-size: 1rem; font-weight: 700; color: var(--white); }
+  .cert-body { font-family: 'Space Mono', monospace; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.06em; }
+  .cert-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .cert-status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent3); }
+
+  /* BLOG */
+  .blog-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2px; }
+  .blog-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .blog-card:hover { background: var(--surface2); }
+  .blog-card:hover .blog-arrow { transform: translate(4px,-4px); }
+  .blog-img {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    overflow: hidden;
+    height: 180px;
+  }
+  .blog-card:first-child .blog-img { height: 220px; }
+  .blog-img svg { position: absolute; inset: 0; opacity: 0.12; }
+  .blog-body { padding: 24px 24px 20px; }
+  .blog-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .blog-cat { font-family: 'Space Mono', monospace; font-size: 0.62rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; }
+  .blog-date { font-family: 'Space Mono', monospace; font-size: 0.62rem; color: var(--muted); }
+  .blog-title { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+  .blog-card:first-child .blog-title { font-size: 1.3rem; }
+  .blog-excerpt { font-family: 'Space Mono', monospace; font-size: 0.68rem; line-height: 1.9; color: var(--muted); margin-bottom: 18px; }
+  .blog-footer { display: flex; align-items: center; justify-content: space-between; }
+  .read-time { font-family: 'Space Mono', monospace; font-size: 0.62rem; color: var(--muted); }
+  .blog-arrow { color: var(--accent); transition: transform 0.2s; display: inline-block; font-size: 1.1rem; }
+
+  /* TOOLS MARQUEE */
+  .tools-marquee { overflow: hidden; padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 40px; }
+  .tools-track { display: flex; gap: 56px; animation: marquee 22s linear infinite; width: max-content; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .tool-item { display: flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 0.76rem; color: var(--muted); white-space: nowrap; transition: color 0.2s; }
+  .tool-item:hover { color: var(--accent); }
+  .tool-dot { color: var(--accent); font-size: 0.45rem; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info p { font-family: 'Space Mono', monospace; font-size: 0.78rem; line-height: 2; color: var(--muted); margin-top: 16px; max-width: 420px; }
+  .contact-email {
+    margin-top: 32px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+    padding-bottom: 4px;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .contact-email:hover { color: var(--white); }
+  .contact-socials { display: flex; gap: 14px; margin-top: 28px; }
+  .contact-social {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .contact-social:hover { color: var(--white); border-color: var(--white); }
+  .contact-social.insta:hover { border-color: #e1306c; color: #e1306c; }
+  .contact-social.linkedin:hover { border-color: #0077b5; color: #0077b5; }
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .form-input, .form-textarea {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Space Mono', monospace; font-size: 0.78rem;
+    padding: 13px 16px; outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+  .form-textarea { height: 110px; }
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 32px; background: transparent;
+    border: 1px solid var(--accent); color: var(--accent);
+    font-family: 'Space Mono', monospace; font-size: 0.76rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s; align-self: flex-start;
+  }
+  .submit-btn:hover { background: var(--accent); color: var(--bg); }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    padding: 22px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+  }
+  .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); }
+  .footer-copy span { color: var(--accent2); }
+  .footer-right { display: flex; align-items: center; gap: 20px; }
+  .footer-link {
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    color: var(--muted); text-decoration: none; letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--accent); }
+
+  /* Animations */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .blog-card:first-child { grid-column: 1 / -1; }
+    .expertise-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links, .nav-socials { display: none; }
+    section { padding: 60px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .expertise-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    footer { padding: 20px; flex-direction: column; gap: 12px; text-align: center; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .section-line { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Akhil <span>Kulal B</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-socials">
+    <a href="https://www.instagram.com/akhil_bk_/" target="_blank" class="nav-social-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @akhil_bk_
+    </a>
+    <a href="https://www.linkedin.com/in/akhil-kulal" target="_blank" class="nav-social-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Cybersecurity Engineer</div>
+    </div>
+    <h1 class="hero-name">
+      <span class="first">Akhil</span>
+      <span class="last">Kulal B</span>
+    </h1>
+    <div class="hero-title">Available for Engagements</div>
+    <p class="hero-bio">
+      I turn <strong>complex infrastructure</strong> into a fortress. With a background in <em>DevOps</em> and a focus on compliance — <strong>ISO 27001/42001, HIPAA, SOC 2, Cyber Essentials</strong> — I specialize in securing <em>AWS ecosystems</em> and driving proactive vulnerability management.<br><br>
+      Security is not a checkbox. It is a <strong>continuous, evolving process</strong> of technical excellence.
+    </p>
+    <div class="hero-cta">
+      <a href="#blog" class="btn-primary">→ Read My Blog</a>
+      <a href="#contact" class="btn-outline">↗ Work With Me</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="profile-card">
+      <div class="profile-avatar">👨‍💻</div>
+      <div class="profile-name">Akhil Kulal B</div>
+      <div class="profile-role">Cybersecurity Engineer · DevOps Background</div>
+      <div class="profile-tags">
+        <span class="profile-tag">ISO 27001</span>
+        <span class="profile-tag">ISO 42001</span>
+        <span class="profile-tag">HIPAA</span>
+        <span class="profile-tag">SOC 2</span>
+        <span class="profile-tag">AWS Security</span>
+        <span class="profile-tag">Cyber Essentials</span>
+      </div>
+      <div class="profile-socials">
+        <a href="https://www.instagram.com/akhil_bk_/" target="_blank" class="profile-social insta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/akhil-kulal" target="_blank" class="profile-social linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="mini-terminal">
+      <div class="mini-term-bar">
+        <div class="td r"></div><div class="td y"></div><div class="td g"></div>
+        <div class="term-label">akhil@seclab ~ $</div>
+      </div>
+      <div class="mini-term-body">
+        <div class="tl"><span class="tp">❯</span><span class="tc"> whoami</span></div>
+        <div class="to g">akhil_kulal_b</div>
+        <div class="tl"><span class="tp">❯</span><span class="tc"> cat focus.txt</span></div>
+        <div class="to a">AWS · Compliance · DevSecOps</div>
+        <div class="tl"><span class="tp">❯</span><span class="tc"> status</span></div>
+        <div class="to g">[ ✓ ] Open to Projects</div>
+        <div class="tl"><span class="tp">❯</span><span class="tc"> <span class="tcur"></span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">5<span>+</span></div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4<span>+</span></div>
+    <div class="stat-label">Compliance Frameworks</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">AWS<span>✓</span></div>
+    <div class="stat-label">Cloud Ecosystem Focus</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0<span>day</span></div>
+    <div class="stat-label">Tolerance for Security Debt</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-tag">// Who I Am</div>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>I'm <strong>Akhil Kulal B</strong>, a Cybersecurity Engineer who bridges the gap between development velocity and security rigor. My journey started in <em>DevOps</em>, giving me a deep understanding of how modern infrastructure is built — and exactly where it breaks.</p>
+      <p>Today, I specialize in <em>AWS cloud security</em>, helping organizations architect environments that are secure by design — not bolted on after the fact. I work across the full stack of compliance: <strong>ISO 27001, ISO 42001, HIPAA, SOC 2, and Cyber Essentials</strong>.</p>
+      <p>My philosophy is simple: <em>security is a continuous process</em>, not a project. I'm driven by technical excellence, proactive vulnerability management, and the belief that every company — regardless of size — deserves enterprise-grade protection.</p>
+      <p>Outside the terminal, I stay curious. Follow my journey on <strong>Instagram @akhil_bk_</strong> and connect professionally on <strong>LinkedIn</strong>.</p>
+    </div>
+
+    <div class="about-highlights fade-up">
+      <div class="highlight-row">
+        <div class="hl-icon">🏢</div>
+        <div>
+          <div class="hl-label">Current Focus</div>
+          <div class="hl-value">AWS Security & Compliance</div>
+        </div>
+      </div>
+      <div class="highlight-row">
+        <div class="hl-icon">📋</div>
+        <div>
+          <div class="hl-label">Frameworks</div>
+          <div class="hl-value">ISO 27001 · 42001 · HIPAA · SOC 2</div>
+        </div>
+      </div>
+      <div class="highlight-row">
+        <div class="hl-icon">🔧</div>
+        <div>
+          <div class="hl-label">Background</div>
+          <div class="hl-value">DevOps → DevSecOps</div>
+        </div>
+      </div>
+      <div class="highlight-row">
+        <div class="hl-icon">🌍</div>
+        <div>
+          <div class="hl-label">Availability</div>
+          <div class="hl-value">Open to Remote & On-site</div>
+        </div>
+      </div>
+      <div class="highlight-row">
+        <div class="hl-icon">📸</div>
+        <div>
+          <div class="hl-label">Instagram</div>
+          <div class="hl-value">@akhil_bk_</div>
+        </div>
+      </div>
+      <div class="highlight-row">
+        <div class="hl-icon">💼</div>
+        <div>
+          <div class="hl-label">LinkedIn</div>
+          <div class="hl-value">linkedin.com/in/akhil-kulal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- BLOG -->
+<section id="blog" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-tag">// My Writing</div>
+      <h2 class="section-title">Blog</h2>
+    </div>
+    <div class="section-line"></div>
+    <a href="#" class="btn-outline" style="white-space:nowrap; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 24px; border: 1px solid var(--border); color: var(--muted); text-decoration: none; transition: all 0.2s;">View All →</a>
+  </div>
+
+  <div class="blog-grid">
+    <div class="blog-card fade-up">
+      <div class="blog-img" style="background: var(--surface2);">
+        <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="bg1" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="#00d4ff"/><line x1="0" y1="20" x2="40" y2="20" stroke="#00d4ff" stroke-width="0.4"/><line x1="20" y1="0" x2="20" y2="40" stroke="#00d4ff" stroke-width="0.4"/></pattern></defs><rect width="400" height="220" fill="url(#bg1)"/></svg>
+        ☁️
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta"><span class="blog-cat">AWS Security</span><span class="blog-date">Mar 01, 2026</span></div>
+        <h3 class="blog-title">15 AWS IAM Misconfigurations That Lead to Full Account Takeover</h3>
+        <p class="blog-excerpt">A practical breakdown of the most overlooked IAM privilege escalation paths in enterprise AWS accounts — and exactly how to fix them before an attacker finds them first...</p>
+        <div class="blog-footer"><span class="read-time">⏱ 12 min read</span><span class="blog-arrow">↗</span></div>
+      </div>
+    </div>
+    <div class="blog-card fade-up">
+      <div class="blog-img" style="background: var(--surface2); height:160px; font-size:2rem;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="bg2" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="15" height="15" fill="none" stroke="#ff3c6f" stroke-width="0.4"/></pattern></defs><rect width="200" height="160" fill="url(#bg2)"/></svg>
+        📋
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta"><span class="blog-cat">Compliance</span><span class="blog-date">Feb 14, 2026</span></div>
+        <h3 class="blog-title">ISO 27001 vs SOC 2: Which Should Your Startup Pursue First?</h3>
+        <p class="blog-excerpt">A no-nonsense guide to choosing the right compliance framework based on your customers, market, and engineering maturity...</p>
+        <div class="blog-footer"><span class="read-time">⏱ 8 min read</span><span class="blog-arrow">↗</span></div>
+      </div>
+    </div>
+    <div class="blog-card fade-up">
+      <div class="blog-img" style="background: var(--surface2); height:160px; font-size:2rem;">
+        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="bg3" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="4" fill="none" stroke="#39ff8f" stroke-width="0.4"/></pattern></defs><rect width="200" height="160" fill="url(#bg3)"/></svg>
+        🔁
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta"><span class="blog-cat">DevSecOps</span><span class="blog-date">Jan 28, 2026</span></div>
+        <h3 class="blog-title">Shifting Left: Embedding Security into Your CI/CD Pipeline Without Slowing Teams Down</h3>
+        <p class="blog-excerpt">How to integrate SAST, DAST, and secrets scanning into GitHub Actions without creating friction for your dev team...</p>
+        <div class="blog-footer"><span class="read-time">⏱ 10 min read</span><span class="blog-arrow">↗</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section style="background: var(--bg); border-top: 1px solid var(--border); padding: 60px 60px;">
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-tag">// My Stack</div>
+      <h2 class="section-title">Tools & Technologies</h2>
+    </div>
+    <div class="section-line"></div>
+  </div>
+  <div class="tools-marquee">
+    <div class="tools-track">
+      <span class="tool-item"><span class="tool-dot">◆</span> AWS Security Hub</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> GuardDuty</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Terraform</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Checkov</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Trivy</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Splunk</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Elastic SIEM</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Nessus</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Qualys</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> GitHub Actions</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Docker / K8s</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Python / Bash</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Burp Suite</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Wireshark</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Wiz</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Prowler</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> AWS Security Hub</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> GuardDuty</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Terraform</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Checkov</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Trivy</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Splunk</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Elastic SIEM</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Nessus</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Qualys</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> GitHub Actions</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Docker / K8s</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Python / Bash</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Burp Suite</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Wireshark</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Wiz</span>
+      <span class="tool-item"><span class="tool-dot">◆</span> Prowler</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="section-header fade-up">
+    <div>
+      <div class="section-tag">// Let's Connect</div>
+      <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <p>Whether you need a cloud security architecture review, compliance implementation, DevSecOps consulting, or just want to talk security — I'm happy to connect.</p>
+      <div class="contact-email">akhilbk9@gmail.com</div>
+      <div class="contact-socials">
+        <a href="https://www.instagram.com/akhil_bk_/" target="_blank" class="contact-social insta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          @akhil_bk_
+        </a>
+        <a href="https://www.linkedin.com/in/akhil-kulal" target="_blank" class="contact-social linkedin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form fade-up">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-input" type="text" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <input class="form-input" type="text" placeholder="Cloud Security Consultation">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell me about your project or security challenge..."></textarea>
+      </div>
+      <button class="submit-btn">→ Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Akhil Kulal B · <span>Security is a process, not a checkbox.</span></div>
+  <div class="footer-right">
+    <a href="https://www.instagram.com/akhil_bk_/" target="_blank" class="footer-link">Instagram</a>
+    <a href="https://www.linkedin.com/in/akhil-kulal" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="#blog" class="footer-link">Blog</a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+  (function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+  document.querySelectorAll('a, button, .blog-card, .highlight-row').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2)';
+      ring.style.transform = 'scale(1.4)';
+      ring.style.borderColor = 'var(--accent2)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.transform = 'scale(1)';
+      ring.style.borderColor = 'var(--accent)';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
+</html>
